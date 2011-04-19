@@ -183,6 +183,10 @@ module ActiveRecord #:nodoc:
                                                     :dependent   => :delete_all
         }.merge(options[:association_options] || {})
 
+        if version_association_options[:dependent].blank?
+          version_association_options.delete(:dependent)
+        end
+
         if block_given?
           extension_module_name = "#{versioned_class_name}Extension"
           silence_warnings do
